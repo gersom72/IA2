@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: black;
+            text-align: center;
+        }
+        
+        canvas {
+            background: green;
+            border: 1px solid black;
+            margin: auto;
+            position: relative;
+            top: 100px;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+    <canvas id="lienzo" width="500px" height="500px"> </canvas>
+
+
+
+    <script>
+        var contexto = document.getElementById("lienzo").getContext("2d");
+        contexto.fillStyle = "blue";
+
+        //texto 
+        contexto.font = "25px san-serif";
+        contexto.fillText("Inteligencia Artificial", 200, 220);
+        contexto.fillText("Gersom Flores Díaz", 200, 260);
+
+
+
+        //tiempo
+        var temporizador = setTimeout("bucle()", 1000)
+        var x = 250;
+        var y = 250;
+        direccion = 0;
+
+
+
+        function bucle() {
+
+            // contexto.clearRect(0, 0, 500, 500);
+
+            //rastro 
+            contexto.fillStyle = "rgb(255,255,255,0.02)";
+            contexto.fillRect(0, 0, 500, 500);
+            contexto.fillStyle = "black";
+
+
+
+            //patitas.
+            //1
+            contexto.fillStyle = "black";
+            contexto.beginPath();
+            contexto.arc(x + Math.cos(direccion + Math.PI / 2 * 0.5) * 10, y + Math.sin(direccion + Math.PI / 2 * 0.5) * 10, 3, 0, Math.PI * 2, true);
+            contexto.fill();
+            //2
+            contexto.fillStyle = "black";
+            contexto.beginPath();
+            contexto.arc(x + Math.cos(direccion - Math.PI / 2 * 0.5) * 10, y + Math.sin(direccion - Math.PI / 2 * 0.5) * 10, 3, 0, Math.PI * 2, true);
+            contexto.fill();
+
+            //3
+            contexto.fillStyle = "black";
+            contexto.beginPath();
+            contexto.arc(x + Math.cos(direccion + Math.PI / 2 * 1.5) * 10, y + Math.sin(direccion + Math.PI / 2 * 1.5) * 10, 3, 0, Math.PI * 2, true);
+            contexto.fill();
+
+            //4
+            contexto.fillStyle = "black";
+            contexto.beginPath();
+            contexto.arc(x + Math.cos(direccion - Math.PI / 2 * 1.5) * 10, y + Math.sin(direccion - Math.PI / 2 * 1.5) * 10, 3, 0, Math.PI * 2, true);
+            contexto.fill();
+
+            // cabeza
+            contexto.fillStyle = "black";
+            contexto.beginPath();
+            contexto.arc(x + Math.cos(direccion) * 10, y + Math.sin(direccion) * 10, 5, 0, Math.PI * 2, true);
+            contexto.fill();
+
+            //linea
+            contexto.beginPath();
+            contexto.moveTo(x, y);
+            contexto.lineTo(x + Math.cos(direccion) * 30, y + Math.sin(direccion) * 30)
+            contexto.stroke();
+
+            //cuerpo circulo
+            contexto.fillStyle = "red";
+            contexto.beginPath();
+            contexto.arc(x, y, 10, 0, Math.PI * 2, true);
+            contexto.fill();
+
+
+            direccion += (Math.random() - 0.5) * 0.2;
+            x += Math.cos(direccion);
+            y += Math.sin(direccion);
+
+            // chocar pared y rebotar
+            if (x < -1) {
+                x = 0;
+                direccion += Math.PI;
+            }
+            if (x > 501) {
+                x = 500;
+                direccion += Math.PI;
+            }
+            if (y < -1) {
+                y = 0;
+                direccion += Math.PI;
+            }
+            if (y > 501) {
+                y = 500;
+                direccion += Math.PI;
+            }
+
+
+            clearTimeout(temporizador);
+            temporizador = setTimeout("bucle()", .010)
+        }
+    </script>
+</body>
+
+</html>

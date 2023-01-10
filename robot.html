@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background: black;
+            text-align: center;
+        }
+        
+        canvas {
+            background: green;
+            border: 1px solid black;
+            margin: auto;
+            position: relative;
+            top: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="lienzo" width="500px" height="500px">
+        <script src="robot.js"></script>
+        <script src="funciones.js"></script>
+
+    </canvas>
+    <script>
+        var contexto = document.getElementById("lienzo").getContext("2d");
+        textoinicial();
+
+        //tiempo
+        var temporizador = setTimeout("bucle()", 1000)
+
+        var nrobots = 10;
+        var misrobots = new Array();
+
+        for (var i = 0; i < nrobots; i++) {
+            misrobots[i] = new Robot;
+        }
+
+        function bucle() {
+            limpiapantalla();
+            contexto.fillStyle = "black";
+            for (var i = 0; i < nrobots; i++) {
+                misrobots[i].dibuja();
+                misrobots[i].mueverobot();
+            }
+
+            clearTimeout(temporizador);
+            temporizador = setTimeout("bucle()", .500)
+        }
+    </script>
+</body>
+
+</html>
